@@ -90,7 +90,7 @@ Other systems could be used to design complex autonomous behavior, namely Hierar
 
 Planners and controllers are at the heart of a navigation task. Recoveries are used to get the robot out of a bad situation or attempt to deal with various forms of issues to make the system fault-tolerant. Smoothers can be used for additional quality improvements of the planned path. In this section, the general concepts around them and their uses in this project are analyzed.
 
-> 规划者和控制者是导航任务的核心。恢复用于使机器人摆脱糟糕的境况或尝试处理各种问题，以使系统具有容错性。平滑器可用于对计划路径进行额外的质量改进。在本节中，将分析它们的一般概念及其在本项目中的用途。
+> **规划者(Planners)和控制者(controllers)是导航任务的核心**。恢复用于使机器人摆脱糟糕的境况或尝试处理各种问题，以使系统具有容错性。平滑器可用于对计划路径进行额外的质量改进。在本节中，将分析它们的一般概念及其在本项目中的用途。
 
 ## Planner, Controller, Smoother and Recovery Servers
 
@@ -100,7 +100,7 @@ Four of the action servers in this project are the planner, behavior, smoother a
 
 These action servers are used to host a map of algorithm plugins to complete various tasks. They also host the environmental representation used by the algorithm plugins to compute their outputs.
 
-> 这些动作服务器用于托管一张算法插件的映射，以完成各种任务。它们还托管算法插件用于计算其输出的环境表示。`Wait`
+> 这些动作服务器用于托管一张算法插件的映射，以完成各种任务。它们还托管算法插件用于计算其输出的环境表示。
 
 The planner, smoother and controller servers will be configured at runtime with the names (aliases) and types of algorithms to use. These types are the pluginlib names that have been registered and the names are the aliases for the task. An example would be the DWB controller used with name `FollowPath`, as it follows a reference path. In this case, then all parameters for DWB would be placed in that namespace, e.g. `FollowPath.<param>`.
 
@@ -112,7 +112,7 @@ These three servers then expose an action interface corresponding to its task. W
 
 For the behavior server, each of the behaviors also contains their own name, however, each plugin will also expose its own special action server. This is done because of the wide variety of behavior actions that may be created cannot have a single simple interface to share. The behavior server also contains a costmap subscriber to the local costmap, receiving real-time updates from the controller server, to compute its tasks. We do this to avoid having multiple instances of the local costmap which are computationally expensive to duplicate.
 
-> 對於行為伺服器，每個行為也包含它們自己的名字，但是每個插件也會暴露出它自己的特殊行為伺服器。這是因為可能創建的各種行為動作無法有單一簡單的介面來共享。行為伺服器還包含一個對本地 costmap 的訂閱者，接收來自控制伺服器的即時更新，以計算其任務。我們這樣做是為了避免本地 costmap 的多個實例，這些實例在複製時計算上是昂貴的。
+> 对于行为伺服器，每个行为也包含它们自己的名字，但是每个插件也会暴露出它自己的特殊行为伺服器。这是因为可能创建的各种行为动作无法有单一简单的介面来共享。行为伺服器还包含一个对本地 costmap 的订阅者，接收来自控制伺服器的即时更新，以计算其任务。我们这样做是为了避免本地 costmap 的多个实例，这些实例在复制时计算上是昂贵的。
 
 Alternatively, since the BT nodes are trivial plugins calling an action, new BT nodes can be created to call other action servers with other action types. It is advisable to use the provided servers if possible at all times. If, due to the plugin or action interfaces, a new server is needed, that can be sustained with the framework. The new server should use the new type and plugin interface, similar to the provided servers. A new BT node plugin will need to be created to call the new action server \-- however no forking or modification is required in the Nav2 repo itself by making extensive use of servers and plugins.
 
@@ -149,13 +149,13 @@ Controllers, also known as local planners in ROS 1, are the way we follow the gl
 
 The general task in Nav2 for a controller is to compute a valid control effort to follow the global plan. However, many classes of controllers and local planners exist. It is the goal of this project that all controller algorithms can be plugins in this server for common research and industrial tasks.
 
-> `通用的Nav2控制器任务是计算有效的控制努力来遵循全局计划。然而，存在许多类别的控制器和局部规划器。这个项目的目标是所有控制器算法都可以插件到这个服务器中，用于共同的研究和工业任务。`
+> 通用的Nav2控制器任务是计算有效的控制努力来遵循全局计划。然而，存在许多类别的控制器和局部规划器。这个项目的目标是所有控制器算法都可以插件到这个服务器中，用于共同的研究和工业任务。
 
 ## Behaviors
 
 Recovery behaviors are a mainstay of fault-tolerant systems. The goal of recoveries are to deal with unknown or failure conditions of the system and autonomously handle them. Examples may include faults in the perception system resulting in the environmental representation being full of fake obstacles. The clear costmap recovery would then be triggered to allow the robot to move.
 
-> `恢复行为是容错系统的主要组成部分。恢复的目标是处理系统的未知或故障状态，并自主处理它们。例如，感知系统中的故障可能导致环境表示中充满了假障碍。清晰的成本图恢复将被触发，以允许机器人移动。`
+> **恢复行为是容错系统的主要组成部分**。恢复的目标是处理系统的**未知或故障状态，并自主处理它们**。例如，感知系统中的故障可能导致环境表示中充满了**假障碍。清晰的成本图恢复将被触发，以允许机器人移动**。
 
 Another example would be if the robot was stuck due to dynamic obstacles or poor control. Backing up or spinning in place, if permissible, allow the robot to move from a poor location into free space it may navigate successfully.
 
@@ -173,7 +173,7 @@ It is important to note that the behavior server can hold any behavior to share 
 
 As criteria for optimality of the path searched by a planner are usually reduced compared to reality, additional path refinement is often beneficial. Smoothers have been introduced for this purpose, typically responsible for reducing path raggedness and smoothing abrupt rotations, but also for increasing distance from obstacles and high-cost areas as the smoothers have access to a global environmental representation.
 
-> 作为规划器搜索路径的最优性标准通常比现实要少，因此通常有必要进行额外的路径细化。为此，引入了平滑器，其主要负责减少路径的锯齿和平滑突变旋转，还可以通过平滑器访问全局环境表示，从而增加与障碍物和高成本区域的距离。
+> 作为规划器搜索路径的最优性标准通常比现实要少，因此通常有必要进行**额外的路径细化**。为此，引入了平滑器，其主要负责减少路径的锯齿和平滑突变旋转，还可以通过平滑器访问全局环境表示，从而增加与障碍物和高成本区域的距离。
 
 Use of a separate smoother over one that is included as a part of a planner is advantageous when combining different planners with different smoothers or when a specific control over smoothing is required, e.g. smoothing ony a specific part of the path.
 
@@ -199,11 +199,11 @@ However, it could be used for more than just a sample application. There are 2 s
 
 In the first, the `nav2_waypoint_follower` is fully sufficient to create a production-grade on-robot solution. Since the autonomy system / dispatcher is taking into account things like the robot\'s pose, battery level, current task, and more when assigning tasks, the application on the robot just needs to worry about the task at hand and not the other complexities of the system complete the requested task. In this situation, you should think of a request to the waypoint follower as 1 unit of work (e.g. 1 pick in a warehouse, 1 security patrole loop, 1 aisle, etc) to do a task and then return to the dispatcher for the next task or request to recharge. In this school of thought, the waypoint following application is just one step above navigation and below the system autonomy application.
 
-> 首先，`nav2_waypoint_follower`完全足以创建一个生产级的机器人解决方案。由于自动化系统/调度程序在分配任务时会考虑机器人的姿态、电池电量、当前任务等因素，因此机器人上的应用程序只需要关注手头的任务，而不必考虑系统的其他复杂性来完成所请求的任务。在这种情况下，你应该将对航点跟踪程序的请求视为 1 个单位的工作(例如仓库中的 1 次拣货、1 次安全巡逻循环、1 条货架等)，然后返回调度程序以获取下一个任务或充电请求。按照这种思路，航点跟踪应用程序只是导航之上、系统自主应用程序之下的一个步骤。
+> 首先，**`nav2_waypoint_follower`完全足以创建一个生产级的机器人解决方案**。由于自动化系统/调度程序在分配任务时会考虑机器人的姿态、电池电量、当前任务等因素，因此机器人上的应用程序只需要关注手头的任务，而不必考虑系统的其他复杂性来完成所请求的任务。在这种情况下，你应该将对航点跟踪程序的请求视为 1 个单位的工作(例如仓库中的 1 次拣货、1 次安全巡逻循环、1 条货架等)，然后返回调度程序以获取下一个任务或充电请求。按照这种思路，航点跟踪应用程序只是导航之上、系统自主应用程序之下的一个步骤。
 
 In the second, the `nav2_waypoint_follower` is a nice sample application / proof of concept, but you really need your waypoint following / autonomy system on the robot to carry more weight in making a robust solution. In this case, you should use the `nav2_behavior_tree` package to create a custom application-level behavior tree using navigation to complete the task. This can include subtrees like checking for the charge status mid-task for returning to dock or handling more than 1 unit of work in a more complex task. Soon, there will be a `nav2_bt_waypoint_follower` (name subject to adjustment) that will allow you to create this application more easily. In this school of thought, the waypoint following application is more closely tied to the system autonomy, or in many cases, is the system autonomy.
 
-> 在第二个，`nav2_waypoint_follower`是一个不错的示例应用程序/概念验证，但是你真的需要你的航点跟随/自主系统在机器人上承担更多的责任来制作一个健壮的解决方案。在这种情况下，你应该使用`nav2_behavior_tree`包来创建一个自定义的应用程序级别的行为树来完成任务。这可以包括检查中途充电状态以返回充电桩或处理更多的工作单元在一个更复杂的任务中的子树。很快，将有一个`nav2_bt_waypoint_follower`(名称可以调整)，它将允许你更容易地创建这个应用程序。在这种思想中，航点跟随应用程序更紧密地与系统自主性相关，或者在许多情况下，就是系统自主性。
+> 在第二个，`nav2_waypoint_follower`是一个不错的示例应用程序/概念验证，但是你真的需要你的航点跟随/自主系统在机器人上承担更多的责任来制作一个健壮的解决方案。在这种情况下，你**应该使用`nav2_behavior_tree`包来创建一个自定义的应用程序级别的行为树来完成任务**。这可以包括检查中途充电状态以返回充电桩或处理更多的工作单元在一个更复杂的任务中的子树。很快，将有一个`nav2_bt_waypoint_follower`(名称可以调整)，它将允许你更容易地创建这个应用程序。在这种思想中，航点跟随应用程序更紧密地与系统自主性相关，或者在许多情况下，就是系统自主性。
 
 Neither is better than the other, it highly depends on the tasks your robot(s) are completing, in what type of environment, and with what cloud resources available. Often this distinction is very clear for a given business case.
 
@@ -223,7 +223,8 @@ Note
 There is **no** requirement on using a LIDAR on your robot to use the navigation system. There is no requirement to use lidar-based collision avoidance, localization, or slam. However, we do provide instructions and support tried and true implementations of these things using lidars. You can be equally as successful using a vision or depth based positioning system and using other sensors for collision avoidance. The only requirement is that you follow the standards below with your choice of implementation.
 
 > 没有要求在机器人上使用激光雷达来使用导航系统。也没有要求使用基于激光雷达的碰撞避免、定位或 SLAM。但是，我们提供了使用激光雷达实现这些事情的说明和支持。您也可以使用视觉或深度定位系统并使用其他传感器进行碰撞避免，同样取得成功。唯一的要求是您根据以下标准选择实施方案。
-> :::
+
+:::
 
 ## Standards
 
@@ -233,7 +234,7 @@ There is **no** requirement on using a LIDAR on your robot to use the navigation
 
 In a nutshell, REP-105 says that you must, at minimum, build a TF tree that contains a full `map` -\> `odom` -\> `base_link` -\> `[sensor frames]` for your robot. TF2 are the time-variant transformation library in ROS 2 we use to represent and obtain time synchronized transformations. It is the job of the global positioning system (GPS, SLAM, Motion Capture) to, at minimum, provide the `map` -\> `odom` transformation. It is then the role of the odometry system to provide the `odom` -\> `base_link` transformation. The remainder of the transformations relative to `base_link` should be static and defined in your [URDF](http://wiki.ros.org/urdf).
 
-> REP-105 要求你至少需要构建一个包含完整 `map` -\> `odom` -\> `base_link` -\> `[sensor frames]` 的 TF 树来描述你的机器人。TF2 是 ROS 2 中用来表示和获取时间同步变换的时变变换库。它的工作是至少提供 `map` -\> `odom` 变换，由全局定位系统(GPS、SLAM、Motion Capture)完成。然后，接下来的工作是由里程计系统提供 `odom` -\> `base_link` 变换。关于 `base_link` 的其余变换应该是静态的，并在你的 [URDF](http://wiki.ros.org/urdf) 中定义。
+> REP-105 要求你至少需要构建一个包含完整 `map` -\> `odom` -\> `base_link` -\> `[sensor frames]` 的 TF 树来描述你的机器人。**TF2 是 ROS 2 中用来表示和获取时间同步变换的时变变换库**。它的工作是至少提供 `map` -\> `odom` 变换，由全局定位系统(GPS、SLAM、Motion Capture)完成。然后，接下来的工作是由里程计系统提供 `odom` -\> `base_link` 变换。关于 `base_link` 的其余变换应该是静态的，并在你的 [URDF](http://wiki.ros.org/urdf) 中定义。
 
 ## Global Positioning: Localization and SLAM
 
@@ -253,11 +254,11 @@ It is the role of the odometry system to provide the `odom` -\> `base_link` tran
 
 [Robot Localization](https://github.com/cra-ros-pkg/robot_localization/) is typically used for this fusion. It will take in `N` sensors of various types and provide a continuous and smooth odometry to TF and to a topic. A typical mobile robotics setup may have odometry from wheel encoders, IMUs, and vision fused in this manor.
 
-> [机器人定位](https://github.com/cra-ros-pkg/robot_localization/)通常用于此融合。它将接受`N`个不同类型的传感器，并向 TF 和主题提供持续平滑的 odometry。典型的移动机器人设置可能会以这种方式融合来自轮编码器、IMU 和视觉的 odometry。
+> [Robot Localization]通常用于此融合。它将接受`N`个不同类型的传感器，并向 TF 和主题提供持续平滑的 odometry。典型的移动机器人设置可能会以这种方式融合来自轮编码器、IMU 和视觉的 odometry。
 
 The smooth output can be used then for dead-reckoning for precise motion and updating the position of the robot accurately between global position updates.
 
-> `输出的平滑度可以用于死记算，以精确的运动和准确更新机器人的位置，在全局位置更新之间。`
+> 输出的平滑度可以用于死记算，以精确的运动和准确更新机器人的位置，在全局位置更新之间。
 
 # Environmental Representation
 
@@ -269,7 +270,7 @@ The environmental representation is the way the robot perceives its environment.
 
 The current environmental representation is a costmap. A costmap is a regular 2D grid of cells containing a cost from unknown, free, occupied, or inflated cost. This costmap is then searched to compute a global plan or sampled to compute local control efforts.
 
-> 当前的环境表示是一个 costmap。costmap 是一个普通的 2D 网格，其中的单元格包含未知、免费、占用或膨胀的成本。然后搜索这个 costmap 来计算全局计划或采样以计算局部控制努力。
+> **当前的环境表示是一个 costmap**。costmap 是一个普通的 2D 网格，其中的单元格**包含未知、免费、占用或膨胀的成本**。然后搜索这个 costmap 来计算全局计划或采样以计算局部控制努力。
 
 Various costmap layers are implemented as pluginlib plugins to buffer information into the costmap. This includes information from LIDAR, RADAR, sonar, depth, images, etc. It may be wise to process sensor data before inputting it into the costmap layer, but that is up to the developer.
 
@@ -297,7 +298,7 @@ Costmap filters - is costmap layer based approach of applying spatial-dependent 
 
 Various other forms of environmental representations exist. These include:
 
-> 各种其他形式的环境表示也存在。其中包括：`
+> 各种其他形式的环境表示也存在。其中包括：
 
 - gradient maps, which are similar to costmaps but represent surface gradients to check traversibility over
 
