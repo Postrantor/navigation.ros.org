@@ -149,7 +149,7 @@ Controllers, also known as local planners in ROS 1, are the way we follow the gl
 
 The general task in Nav2 for a controller is to compute a valid control effort to follow the global plan. However, many classes of controllers and local planners exist. It is the goal of this project that all controller algorithms can be plugins in this server for common research and industrial tasks.
 
-> 通用的Nav2控制器任务是计算有效的控制努力来遵循全局计划。然而，存在许多类别的控制器和局部规划器。这个项目的目标是所有控制器算法都可以插件到这个服务器中，用于共同的研究和工业任务。
+> 通用的 Nav2 控制器任务是计算有效的控制努力来遵循全局计划。然而，存在许多类别的控制器和局部规划器。这个项目的目标是所有控制器算法都可以插件到这个服务器中，用于共同的研究和工业任务。
 
 ## Behaviors
 
@@ -288,7 +288,7 @@ Imagine, you\'re annotating a map file (or any image file) in order to have a sp
 
 Costmap filters - is costmap layer based approach of applying spatial-dependent behavioral changes annotated in filter masks, into Nav2 stack. Costmap filters are implemented as costmap plugins. These plugins are called \"filters\" as they are filtering a costmap by spatial annotations marked on filter masks. In order to make a filtered costmap and change robot\'s behavior in annotated areas, filter plugin reads the data came from filter mask. This data is being linearly transformed into feature map in a filter space. Having this transformed feature map along with a map/costmap, any sensors data and current robot coordinates filters can update underlying costmap and change behavior of the robot depending on where it is. For example, the following functionality could be made by using of costmap filters:
 
-> Costmap 过滤器 - 是一种基于 costmap 层的方法，将空间相关的行为变化注释在过滤掩码中，应用于 Nav2 堆栈中。Costmap 过滤器被实现为 costmap 插件。这些插件被称为“过滤器”，因为它们通过过滤掩码上标记的空间注释来过滤 costmap。为了制作过滤后的 costmap 并更改机器人的行为，过滤器插件从过滤掩码中读取数据。该数据被线性变换为过滤器空间中的特征图。拥有这个转换后的特征图以及地图/ costmap，任何传感器数据和当前机器人坐标过滤器可以更新底层 costmap 并根据机器人所在位置更改其行为。例如，可以通过使用 costmap 过滤器实现以下功能：`Wait`
+> Costmap 过滤器 - 是一种基于 costmap 层的方法，将空间相关的行为变化注释在过滤掩码中，应用于 Nav2 堆栈中。Costmap 过滤器被实现为 costmap 插件。这些插件被称为“过滤器”，因为它们通过过滤掩码上标记的空间注释来过滤 costmap。为了制作过滤后的 costmap 并更改机器人的行为，过滤器插件从过滤掩码中读取数据。该数据被线性变换为过滤器空间中的特征图。拥有这个转换后的特征图以及地图/ costmap，任何传感器数据和当前机器人坐标过滤器可以更新底层 costmap 并根据机器人所在位置更改其行为。例如，可以通过使用 costmap 过滤器实现以下功能：
 
 - Keep-out/safety zones where robots will never enter.
 - Speed restriction areas. Maximum speed of robots going inside those areas will be limited.
@@ -301,18 +301,14 @@ Various other forms of environmental representations exist. These include:
 > 各种其他形式的环境表示也存在。其中包括：
 
 - gradient maps, which are similar to costmaps but represent surface gradients to check traversibility over
-
-> 梯度图，这类似于成本图，但表示表面梯度以检查可穿越性`Wait`
-
 - 3D costmaps, which represent the space in 3D, but then also requires 3D planning and collision checking
-
-> 3D 成本地图，代表空间的 3D，但也需要 3D 规划和碰撞检查`Wait`
-
 - Mesh maps, which are similar to gradient maps but with surface meshes at many angles
-
 - \"Vector space\", taking in sensor information and using machine learning to detect individual items and locations to track rather than buffering discrete points.
 
-> `向量空间`，接收传感器信息，使用机器学习来检测单个项目和位置而不是缓冲离散点。
+> - 梯度图，这类似于成本图，但表示表面梯度以检查可穿越性
+> - 3D 成本地图，代表空间的 3D，但也需要 3D 规划和碰撞检查
+> - 网格地图，类似于梯度图，但具有许多角度的表面网格
+> - `向量空间`，接收传感器信息，使用机器学习来检测单个项目和位置而不是缓冲离散点。
 
 # Nav2 Academic Overview
 
