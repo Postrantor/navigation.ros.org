@@ -5,15 +5,13 @@ title: Adding a New Nav2 Task Server
 
 A nav2 task server consists of server side logic to complete different types of requests, usually called by the autonomy system or through the Behavior Tree Navigator. In this guide, we will discuss the core components needed to add a new task server to Nav2 (ex. Controller, Behavior, Smoother, Planner Servers). Namely, how to set up your new Lifecycle-Component Node for launch and state management and the communication of semantically meaningful error codes (if necessary).
 
-> 一个 Nav2 任务服务器由服务器端逻辑组成，**可以完成不同类型的请求，通常由自主系统或行为树导航器调用**。在本指南中，我们将讨论添加新任务服务器到 Nav2 所需的核心组件(例如控制器、行为、平滑器和规划服务器)。也就是说，如何设置新的生命周期组件节点以进行启动和状态管理，以及语义上有意义的错误码的通信(如果需要)。
+> 一个 Nav2 任务服务器由服务器端逻辑组成，**可以完成不同类型的请求，通常由自主系统或行为树导航器调用**。在本指南中，我们将讨论添加新任务服务器到 Nav2 所需的核心组件(例如控制器、行为、平滑器和规划服务器)。**也就是说，如何设置新的生命周期组件节点以进行启动和状态管理**，以及语义上有意义的错误码的通信(如果需要)。
 
 While this tutorial does not cover how to add the complementary Behavior Tree Node to interact with this new Task Server, that is covered at length in `writing_new_nbt_plugin` so this Task Server can be invoked in the BTs in BT Navigator.
 
 > 这个教程不涵盖如何添加补充的**行为树节点来与这个新的任务服务器交互**，这在`writing_new_nbt_plugin`[](D:\Document\Hirain\Project\rolling\ros-planning\navigation.ros.org\plugin_tutorials\docs\writing_new_bt_plugin.md)中有详细介绍，因此可以在 BT Navigator 中的 BTs 中调用这个任务服务器。
 
 If you\'ve created a new Task Server that may have general reuse for the community, consider contacting the maintainers to add it to the Nav2 project! Nav2 gets better by contributions by users like you!
-
-> 如果您创建了一个可能具有普遍重用性的新任务服务器，请考虑联系维护人员将其添加到 Nav2 项目中！Nav2 通过像您这样的用户的贡献变得更好！
 
 > [!NOTE]
 > 这里与预想的是一致的，有了 lifecycle node 的能力，同时又 lifecycle manager 的角色方便管理，同时有 BT 来进行调度交互；这里的 BT 就是用户依据自己的逻辑实现 node 的行为的规范
