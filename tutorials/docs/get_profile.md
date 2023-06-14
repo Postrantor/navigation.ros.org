@@ -153,7 +153,7 @@ The steps within Nav2 are as follows:
 
 It is important that the profiler node is launched before Nav2 so that it can take the signals from the lifecycle manager to transition up.
 
-> 重要的是，在启动Nav2之前，要先启动Profiler节点，以便它能够接收来自生命周期管理器的信号以进行转换。
+> 重要的是，在启动 Nav2 之前，要先启动 Profiler 节点，以便它能够接收来自生命周期管理器的信号以进行转换。
 
 # Interpreting Results
 

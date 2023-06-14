@@ -62,7 +62,8 @@ Note
 The circle shape could be used instead of polygon, e.g. for the case of omni-directional robots where the collision can occur from any direction. However, for the tutorial needs, let\'s focus our view on polygons. For the same reason, we leave out of scope the Approach model. Both of these cases could be easily enabled by referencing to the `configuring_collision_monitor`{.interpreted-text role="ref"} configuration guide.
 
 > 圆形可以代替多边形，例如在全向机器人的情况下，可能会发生碰撞。但是，为了教程的需要，让我们将视野集中在多边形上。出于同样的原因，我们将 Approach 模型排除在外。通过参考`configuring_collision_monitor`{.interpreted-text role="ref"}配置指南，这两种情况都可以轻松实现。
-> :::
+
+:::
 
 ::: note
 ::: title
@@ -72,7 +73,8 @@ Note
 Both polygon shapes in the tutorial were set statically. However, there is an ability to dynamically adjust them over time using topic messages containing vertices points for polygons or footprints. For more information, please refer to the configuration guide.
 
 > 两个多边形图形在教程中都是静态设置的。但是，可以使用包含多边形顶点点或足迹的主题消息动态调整它们。有关更多信息，请参阅配置指南。
-> :::
+
+:::
 
 For the working configuration, at least one data source should be added. In current demonstration, it is used laser scanner (though `PointCloud2` and Range/Sonar/IR sensors are also possible), which is described by the following lines for Collision Monitor node:
 
@@ -157,7 +159,7 @@ Once Collision Monitor node has been tuned and `cmd_vel` topics remapped, Collis
 > 一旦碰撞监视节点被调整并且`cmd_vel`主题被重映射，碰撞监视节点就准备好运行了。为此，按照`getting_started`中写的运行 Nav2 堆栈：
 
 ```bash
-    ros2 launch nav2_bringup tb3_simulation_launch.py headless:=False
+ros2 launch nav2_bringup tb3_simulation_launch.py headless:=False
 ```
 
 In parallel console, launch Collision Monitor node by using its launch-file:
@@ -165,7 +167,7 @@ In parallel console, launch Collision Monitor node by using its launch-file:
 > 在并行控制台中，使用其启动文件启动碰撞监视节点：
 
 ```bash
-    ros2 launch nav2_collision_monitor collision_monitor_node.launch.py
+ros2 launch nav2_collision_monitor collision_monitor_node.launch.py
 ```
 
 Since both `PolygonStop` and `PolygonSlow` polygons will have their own publishers, they could be added to visualization as shown at the picture below:

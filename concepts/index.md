@@ -312,10 +312,18 @@ Various other forms of environmental representations exist. These include:
 
 # Nav2 Academic Overview
 
-```{=html}
+```html
 <h1 align="center">
-  <div style="position: relative; padding-bottom: 0%; overflow: hidden; max-width: 100%; height: auto;">
-    <iframe width="708" height="400" src="https://www.youtube.com/embed/QB7lOKp3ZDQ?autoplay=1&mute=1" frameborder="1" allowfullscreen></iframe>
+  <div
+    style="position: relative; padding-bottom: 0%; overflow: hidden; max-width: 100%; height: auto;"
+  >
+    <iframe
+      width="708"
+      height="400"
+      src="https://www.youtube.com/embed/QB7lOKp3ZDQ?autoplay=1&mute=1"
+      frameborder="1"
+      allowfullscreen
+    ></iframe>
   </div>
 </h1>
 ```

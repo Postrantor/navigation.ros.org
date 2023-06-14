@@ -1,18 +1,11 @@
 ---
 tip: translate by openai@2023-06-03 00:38:11
+title: Writing a New Behavior Plugin
 ...
 
----
-
-## title: Writing a New Behavior Plugin
-
-- [Overview](#overview)
-- [Requirements](#requirements)
-- [Tutorial Steps](#tutorial-steps)
-  - [1- Creating a new Behavior Plugin](#1--creating-a-new-behavior-plugin)
-  - [2- Exporting the Behavior Plugin](#2--exporting-the-behavior-plugin)
-  - [3- Pass the plugin name through params file](#3--pass-the-plugin-name-through-params-file)
-  - [4- Run Behavior Plugin](#4--run-behavior-plugin)
+- [2- Exporting the Behavior Plugin](#2--exporting-the-behavior-plugin)
+- [3- Pass the plugin name through params file](#3--pass-the-plugin-name-through-params-file)
+- [4- Run Behavior Plugin](#4--run-behavior-plugin)
 
 # Overview
 
@@ -33,15 +26,15 @@ This tutorial shows how to create you own Behavior Plugin. The Behavior Plugins 
 
 We will create a simple send sms behavior. It will use Twilio to send a message via SMS to a remote operations center. The code in this tutorial can be found in [navigation_tutorials](https://github.com/ros-planning/navigation2_tutorials) repository as `nav2_sms_behavior`. This package can be a considered as a reference for writing Behavior Plugin.
 
-> 我們將建立一個簡單的發送簡訊行為。它將使用 Twilio 通過簡訊發送消息到遠程操作中心。本教程中的代碼可以在[navigation_tutorials](https://github.com/ros-planning/navigation2_tutorials)存儲庫中找到，作為`nav2_sms_behavior`。這個包可以被認為是寫行為插件的參考。
+> 我们将建立一个简单的发送简讯行为。它将使用 Twilio 通过简讯发送消息到远程操作中心。本教程中的代码可以在[navigation_tutorials](https://github.com/ros-planning/navigation2_tutorials)存储库中找到，作为`nav2_sms_behavior`。这个包可以被认为是写行为插件的参考。
 
 Our example plugin implements the plugin class of `nav2_core::Behavior`. However, we have a nice wrapper for actions in `nav2_behaviors`, so we use the `nav2_behaviors::TimedBehavior` base class for this application instead. This wrapper class derives from the `nav2_core` class so it can be used as a plugin, but handles the vast majority of ROS 2 action server boiler plate required.
 
-> 我們的示例插件實現了`nav2_core::Behavior`的插件類。但是，我們在`nav2_behaviors`中有一個很好的動作包裝，所以我們為此應用程序使用`nav2_behaviors::TimedBehavior`基類。這個包裝類從`nav2_core`類派生，因此可以用作插件，但可以處理 ROS 2 動作伺服器的絕大部分鍋爐板。
+> 我们的示例插件实现了`nav2_core::Behavior`的插件类。但是，我们在`nav2_behaviors`中有一个很好的动作包装，所以我们为此应用程序使用`nav2_behaviors::TimedBehavior`基类。这个包装类从`nav2_core`类派生，因此可以用作插件，但可以处理 ROS 2 动作伺服器的绝大部分锅炉板。
 
-The base class from `nav2_core` provides 4 pure virtual methods to implement a Behavior Plugin. The plugin will be used by the behavior server to host the plugins, but each plugin will provide their own unique action server interface. Lets learn more about the methods needed to write a Behavior Plugin **if you did not use the \`\`nav2_behaviors\`\` wrapper**.
+The base class from `nav2_core` provides 4 pure virtual methods to implement a Behavior Plugin. The plugin will be used by the behavior server to host the plugins, but each plugin will provide their own unique action server interface. Lets learn more about the methods needed to write a Behavior Plugin **if you did not use the `nav2_behaviors` wrapper**.
 
-> 基类来自`nav2_core`提供 4 个纯虚拟方法来实现一个行为插件。该插件将由行为服务器使用，但每个插件将提供自己的唯一的动作服务器接口。让我们更多地了解编写行为插件所需的方法，**如果您没有使用\`\`nav2_behaviors\`\`包装器**。
+> 基类来自`nav2_core`提供 4 个纯虚拟方法来实现一个行为插件。该插件将由行为服务器使用，但每个插件将提供自己的唯一的动作服务器接口。让我们更多地了解编写行为插件所需的方法，**如果您没有使用`nav2_behaviors`包装器**。
 
 ---
 
@@ -51,11 +44,11 @@ The base class from `nav2_core` provides 4 pure virtual methods to implement a B
 
 configure() Method is called at when server enters on_configure state. Ideally this methods should perform declarations of ROS parameters and initialization of behavior\'s member variables. This method takes 4 input params: shared pointer to parent node, behavior name, tf buffer pointer and shared pointer to a collision checker Yes
 
-> `configure() 方法在服务器进入on_configure状态时被调用。理想情况下，这些方法应该执行ROS参数的声明和行为成员变量的初始化。此方法需要4个输入参数：指向父节点的共享指针，行为名称，tf缓冲指针和指向碰撞检查器的共享指针。`
+> `configure()` 方法在服务器进入 on_configure 状态时被调用。理想情况下，这些方法应该执行 ROS 参数的声明和行为成员变量的初始化。此方法需要 4 个输入参数：指向父节点的共享指针，行为名称，tf 缓冲指针和指向碰撞检查器的共享指针。
 
 activate() Method is called when behavior server enters on_activate state. Ideally this method should implement operations which are neccessary before the behavior to an active state. Yes
 
-> `activate()方法在行为服务器进入on_activate状态时被调用。理想情况下，此方法应实现行为进入活动状态所必需的操作。是的`
+> `activate()` 方法在行为服务器进入 on_activate 状态时被调用。理想情况下，此方法应实现行为进入活动状态所必需的操作。是的
 
 deactivate() Method is called when behavior server enters on_deactivate state. Ideally this method should implement operations which are neccessary before behavior goes to an inactive state. Yes
 
@@ -63,7 +56,7 @@ deactivate() Method is called when behavior server enters on_deactivate state. I
 
 cleanup() Method is called when behavior server goes to on_cleanup state. Ideally this method should clean up resoures which are created for the behavior. Yes
 
-> `清理()方法在行为服务器进入on_cleanup状态时被调用。理想情况下，此方法应清理为行为创建的资源。是的`
+> `清理()`方法在行为服务器进入 on_cleanup 状态时被调用。理想情况下，此方法应清理为行为创建的资源。是的
 
 ---
 
